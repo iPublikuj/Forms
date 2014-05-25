@@ -41,6 +41,18 @@ class FormFactory extends Nette\Object implements IFormFactory
 	private $processors = array();
 
 	/**
+	 * @param Localization\ITranslator $translator
+	 *
+	 * @return $this
+	 */
+	public function injectTranslator(Localization\ITranslator $translator)
+	{
+		$this->setTranslator($translator);
+
+		return $this;
+	}
+
+	/**
 	 * @param $class
 	 * 
 	 * @return $this

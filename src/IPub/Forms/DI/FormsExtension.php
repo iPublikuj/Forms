@@ -38,7 +38,9 @@ class FormsExtension extends DI\CompilerExtension
 
 		$container->addDefinition($this->prefix('formFactory'))
 			->setClass('IPub\Forms\FormFactory')
-			->addSetup('setFormClass', array($config['class']));
+			->addSetup('setFormClass', array($config['class']))
+			->setInject(TRUE)
+			->addTag('cms.forms');
 
 		// Install extension latte macros
 		$install = 'IPub\Forms\Latte\Macros::install';
