@@ -1,0 +1,37 @@
+{
+	"name"				: "ipub/forms",
+	"type"				: "library",
+	"description"		: "Add ability to create forms in better way under Nette",
+	"keywords"			: ["nette", "form"],
+	"homepage"			: "https://github.com/iPublikuj/forms.git",
+	"license"			: ["BSD-3-Clause", "GPL-2.0", "GPL-3.0"],
+	"minimum-stability"	: "dev",
+
+	"authors": [
+		{
+			"name"		: "Adam Kadlec",
+			"homepage"	: "http://www.ipublikuj.eu/"
+		}
+	],
+
+	"support":{
+		"email"		:"support@ipublikuj.eu",
+		"issues"	:"https://github.com/iPublikuj/forms/issues"
+	},
+
+	"require": {
+		"php"				: ">=5.3.2",
+		"nette/nette"		: "~2.1@dev"
+	},
+
+	"require-dev": {
+		"nette/tester"		: "@dev",
+		"janmarek/mockista"	: "@dev"
+	},
+
+	"autoload": {
+		"psr-0": {
+			"IPub\\Forms\\": "src/"
+		}
+	}
+}
