@@ -15,6 +15,7 @@
 namespace IPub\Forms\DI;
 
 use Nette\DI;
+use Nette\Diagnostics\Debugger;
 use Nette\Utils;
 
 class FormsExtension extends DI\CompilerExtension
@@ -37,8 +38,8 @@ class FormsExtension extends DI\CompilerExtension
 		Utils\Validators::assertField($config, 'class', 'string');
 
 		$container->addDefinition($this->prefix('formFactory'))
-			->setClass('IPub\Forms\FormFactory')
-			->addSetup('setFormClass', array($config['class']))
+			->setClass($config['class'])
+			->setImplement('IPub\Forms\IFormFactory')
 			->setInject(TRUE)
 			->addTag('cms.forms');
 
