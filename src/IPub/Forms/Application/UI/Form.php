@@ -17,6 +17,8 @@ namespace IPub\Forms\Application\UI;
 use Nette;
 use Nette\Localization;
 
+use IPub\Forms;
+
 class Form extends Nette\Application\UI\Form
 {
 	/**
@@ -39,11 +41,11 @@ class Form extends Nette\Application\UI\Form
 	/**
 	 * Set form processor
 	 *
-	 * @param IFormProcessor $processor
+	 * @param Forms\IFormProcessor $processor
 	 *
 	 * @return $this
 	 */
-	public function addProcessor(IFormProcessor $processor = NULL)
+	public function addProcessor(Forms\IFormProcessor $processor = NULL)
 	{
 		if ($processor !== NULL) {
 			$processor->attach($this);
@@ -58,7 +60,7 @@ class Form extends Nette\Application\UI\Form
 	 */
 	protected function addExtension($name, $class)
 	{
-		Container::extensionMethod($name, function (Container $container, $name, $label = NULL) use ($class){
+		Container::extensionMethod($name, function (Nette\Forms\Container $container, $name, $label = NULL) use ($class){
 			return $container[$name] = new $class($label);
 		});
 	}
