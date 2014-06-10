@@ -15,7 +15,6 @@
 namespace IPub\Forms\Application\UI;
 
 use Nette;
-use Nette\Localization;
 
 use IPub\Forms;
 
@@ -25,18 +24,6 @@ class Form extends Nette\Application\UI\Form
 	 * @var int
 	 */
 	protected $id;
-
-	/**
-	 * @param Localization\ITranslator $translator
-	 *
-	 * @return $this
-	 */
-	public function injectTranslator(Localization\ITranslator $translator)
-	{
-		$this->setTranslator($translator);
-
-		return $this;
-	}
 
 	/**
 	 * Set form processor
@@ -88,41 +75,6 @@ class Form extends Nette\Application\UI\Form
 		}
 
 		return Nette\ArrayHash::from($values);
-	}
-
-	/**
-	 * @param array|\Nette\Forms\Traversable $values
-	 * @param bool $erase
-	 *
-	 * @return \Nette\Forms\Container
-	 */
-	public function setDefaults($values, $erase = false)
-	{
-		// Set form ID
-		if (is_object($values) && isset($values->id)) {
-			$this->setId($values->id);
-
-		} else if (is_array($values) && isset($values['id'])) {
-			$this->setId($values['id']);
-		}
-
-		// Get object to string for values compatibility
-		if (is_array($values) && count($values)) {
-			$values = array_map(function ($value) {
-				if (is_object($value) && (method_exists($value, '__toString'))) {
-					if (isset($value->id)) {
-						return (string)$value->id;
-
-					} else {
-						return (string)$value;
-					}
-				}
-
-				return $value;
-			}, $values);
-		}
-
-		return parent::setDefaults($values, $erase);
 	}
 
 	/**
