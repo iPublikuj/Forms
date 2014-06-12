@@ -46,25 +46,28 @@ class FormsExtension extends Nette\DI\CompilerExtension
 	 */
 	public function loadConfiguration()
 	{
-		$container = $this->getContainerBuilder();
 		$config = $this->getConfig($this->defaults);
+		$builder = $this->getContainerBuilder();
 
 		Utils\Validators::assertField($config, 'classicFormClass', 'string');
 		Utils\Validators::assertField($config, 'entityFormClass', 'string');
 
-		$container->addDefinition($this->prefix('formFactory'))
+		$builder->addDefinition($this->prefix('formFactory'))
 			->setClass('IPub\Forms\FormFactory')
 			->addSetup('setFormClass', array($config['classicFormClass']))
 			->addTag('cms.forms');
 
-		$container->addDefinition($this->prefix('entityFormFactory'))
+		$builder->addDefinition($this->prefix('entityFormFactory'))
 			->setClass('IPub\Forms\EntityFormFactory')
 			->addSetup('setFormClass', array($config['entityFormClass']))
 			->addTag('cms.forms');
 
 		// Install extension latte macros
-		$install = 'IPub\Forms\Latte\Macros::install';
-		$container->getDefinition('nette.latte')
-			->addSetup($install . '(?->getCompiler())', array('@self'));
+		$latteFactory = $builder->hasDefinition('nette.latteFactory')
+			? $builder->getDefinition('nette.latteFactory')
+			: $builder->getDefinition('nette.latte');
+
+		$latteFactory
+			->addSetup('IPub\Forms\Latte\Macros::install(?->getCompiler())', array('@self'));
 	}
 }

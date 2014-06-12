@@ -15,10 +15,14 @@
 namespace IPub\Forms\Latte;
 
 use Nette;
-use Nette\Latte\Compiler,
-	Nette\Latte\MacroNode,
-	Nette\Latte\PhpWriter,
-	Nette\Latte\Macros\MacroSet;
+
+use Latte;
+use Latte\Compiler;
+use Latte\MacroNode;
+use Latte\PhpWriter;
+use Latte\Macros\MacroSet;
+
+use IPub;
 
 class Macros extends MacroSet
 {
@@ -35,15 +39,26 @@ class Macros extends MacroSet
 	}
 
 	/**
+	 * Renders label beggining tag
 	 * {label ...}
+	 *
+	 * @param MacroNode $node
+	 * @param PhpWriter $writer
+	 *
+	 * @return string
+	 *
+	 * @throws CompileException
 	 */
 	public function macroLabel(MacroNode $node, PhpWriter $writer)
 	{
 		$words = $node->tokenizer->fetchWords();
+
 		if (!$words) {
 			throw new CompileException("Missing name in {{$node->name}}.");
 		}
+
 		$name = array_shift($words);
+
 		return $writer->write(
 			($name[0] === '$' ? '$_input = is_object(%0.word) ? %0.word : $_form[%0.word]; $attributes = %node.array; if ($_input->required) { $attributes += array("class" => "required"); } if ($_label = $_input' : '$attributes = %node.array; if ($_form[%0.word]->required) { $attributes += array("class" => "required"); } if ($_label = $_form[%0.word]')
 			. '->%1.raw) echo $_label'
@@ -54,7 +69,13 @@ class Macros extends MacroSet
 	}
 
 	/**
+	 * Renders label end tag
 	 * {/label}
+	 *
+	 * @param MacroNode $node
+	 * @param PhpWriter $writer
+	 *
+	 * @return string
 	 */
 	public function macroLabelEnd(MacroNode $node, PhpWriter $writer)
 	{
@@ -66,11 +87,12 @@ class Macros extends MacroSet
 
 	/**
 	 * Renders button beggining tag
+	 * {button ...}
 	 *
-	 * @param \Nette\Latte\MacroNode $node
-	 * @param \Nette\Latte\PhpWriter $writer
+	 * @param MacroNode $node
+	 * @param PhpWriter $writer
 	 *
-	 * @return void
+	 * @return string
 	 */
 	public function macroButton(MacroNode $node, PhpWriter $writer)
 	{
@@ -88,11 +110,12 @@ class Macros extends MacroSet
 
 	/**
 	 * Renders button end tag
+	 * {/button}
 	 *
-	 * @param \Nette\Latte\MacroNode $node
-	 * @param \Nette\Latte\PhpWriter $writer
+	 * @param MacroNode $node
+	 * @param PhpWriter $writer
 	 *
-	 * @return void
+	 * @return string
 	 */
 	public function macroButtonEnd(MacroNode $node, PhpWriter $writer)
 	{
@@ -109,10 +132,10 @@ class Macros extends MacroSet
 	/**
 	 * Render button caption
 	 *
-	 * @param \Nette\Latte\MacroNode $node
-	 * @param \Nette\Latte\PhpWriter $writer
+	 * @param MacroNode $node
+	 * @param PhpWriter $writer
 	 *
-	 * @return void
+	 * @return string
 	 */
 	public function macroCaption(MacroNode $node, PhpWriter $writer)
 	{
