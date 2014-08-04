@@ -38,8 +38,9 @@ abstract class FormProcessor extends Object implements IFormProcessor
 
 	/**
 	 * @param Form $form
+	 * @param array $values
 	 */
-	public function success(Form $form) {}
+	public function success(Form $form, $values) {}
 
 	/**
 	 * @param Form $form
