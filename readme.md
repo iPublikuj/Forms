@@ -2,7 +2,7 @@
 
 Add ability to create forms in better way under [Nette Framework](http://nette.org/)
 
-## Instalation
+## Installation
 
 The best way to install ipub/forms is using  [Composer](http://getcomposer.org/):
 
