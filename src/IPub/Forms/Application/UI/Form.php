@@ -15,6 +15,7 @@
 namespace IPub\Forms\Application\UI;
 
 use Nette;
+use Nette\Utils;
 
 use IPub\Forms;
 
@@ -64,17 +65,17 @@ class Form extends Nette\Application\UI\Form
 	/**
 	 * @param bool $asArray
 	 *
-	 * @return array|\Nette\ArrayHash
+	 * @return array|Utils\ArrayHash
 	 */
-	public function getValues($asArray = false)
+	public function getValues($asArray = FALSE)
 	{
 		$values = (array) parent::getValues($asArray);
 
-		if (!isset($values['id'])) {
+		if (!isset($values['id']) && $this->getId() != NULL) {
 			$values['id'] = $this->getId();
 		}
 
-		return Nette\ArrayHash::from($values);
+		return Utils\ArrayHash::from($values);
 	}
 
 	/**

@@ -14,10 +14,11 @@
 
 namespace IPub\Forms;
 
+use Nette;
 use Nette\Application\UI\Form;
-use Nette\Object;
+use Nette\Utils;
 
-abstract class FormProcessor extends Object implements IFormProcessor
+abstract class FormProcessor extends Nette\Object implements IFormProcessor
 {
 	/**
 	 * Attach processor to form
@@ -38,9 +39,9 @@ abstract class FormProcessor extends Object implements IFormProcessor
 
 	/**
 	 * @param Form $form
-	 * @param array $values
+	 * @param Utils\ArrayHash $values
 	 */
-	public function success(Form $form, $values) {}
+	public function success(Form $form, Utils\ArrayHash $values) {}
 
 	/**
 	 * @param Form $form
