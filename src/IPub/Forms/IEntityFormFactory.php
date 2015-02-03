@@ -19,7 +19,7 @@ use Nette;
 interface IEntityFormFactory
 {
 	/**
-	 * @return \Nette\Application\UI\Form
+	 * @return Nette\Application\UI\Form
 	 */
 	function create();
 }

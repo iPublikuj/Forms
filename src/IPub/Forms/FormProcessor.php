@@ -15,7 +15,7 @@
 namespace IPub\Forms;
 
 use Nette;
-use Nette\Application\UI\Form;
+use Nette\Application;
 use Nette\Utils;
 
 abstract class FormProcessor extends Nette\Object implements IFormProcessor
@@ -23,11 +23,11 @@ abstract class FormProcessor extends Nette\Object implements IFormProcessor
 	/**
 	 * Attach processor to form
 	 *
-	 * @param Form $form
+	 * @param Application\UI\Form $form
 	 *
 	 * @return $this
 	 */
-	public function attach(Form $form)
+	public function attach(Application\UI\Form $form)
 	{
 		$form->onSubmit[]	= $this->submit;
 		$form->onSuccess[]	= $this->success;
@@ -38,23 +38,23 @@ abstract class FormProcessor extends Nette\Object implements IFormProcessor
 	}
 
 	/**
-	 * @param Form $form
+	 * @param Application\UI\Form $form
 	 * @param Utils\ArrayHash $values
 	 */
-	public function success(Form $form, Utils\ArrayHash $values) {}
+	public function success(Application\UI\Form $form, Utils\ArrayHash $values) {}
 
 	/**
-	 * @param Form $form
+	 * @param Application\UI\Form $form
 	 */
-	public function validate(Form $form) {}
+	public function validate(Application\UI\Form $form) {}
 
 	/**
-	 * @param Form $form
+	 * @param Application\UI\Form $form
 	 */
-	public function error(Form $form) {}
+	public function error(Application\UI\Form $form) {}
 
 	/**
-	 * @param Form $form
+	 * @param Application\UI\Form $form
 	 */
-	public function submit(Form $form) {}
+	public function submit(Application\UI\Form $form) {}
 }

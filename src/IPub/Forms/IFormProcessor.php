@@ -14,16 +14,16 @@
 
 namespace IPub\Forms;
 
-use Nette\Application\UI\Form;
+use Nette\Application;
 
 interface IFormProcessor
 {
 	/**
 	 * Attach processor to form
 	 *
-	 * @param Form $form
+	 * @param Application\UI\Form $form
 	 *
 	 * @return $this
 	 */
-	public function attach(Form $form);
+	public function attach(Application\UI\Form $form);
 }

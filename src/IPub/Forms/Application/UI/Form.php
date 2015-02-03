@@ -5,7 +5,7 @@
  * @copyright	More in license.md
  * @license		http://www.ipublikuj.eu
  * @author		Adam Kadlec http://www.ipublikuj.eu
- * @package		iPublikuj:AppModule!
+ * @package		iPublikuj:Forms!
  * @subpackage	Application
  * @since		5.0
  *
@@ -33,11 +33,9 @@ class Form extends Nette\Application\UI\Form
 	 *
 	 * @return $this
 	 */
-	public function addProcessor(Forms\IFormProcessor $processor = NULL)
+	public function addProcessor(Forms\IFormProcessor $processor)
 	{
-		if ($processor !== NULL) {
-			$processor->attach($this);
-		}
+		$processor->attach($this);
 
 		return $this;
 	}
@@ -48,18 +46,22 @@ class Form extends Nette\Application\UI\Form
 	 */
 	protected function addExtension($name, $class)
 	{
-		Container::extensionMethod($name, function (Nette\Forms\Container $container, $name, $label = NULL) use ($class){
+		Nette\Forms\Container::extensionMethod($name, function (Nette\Forms\Container $container, $name, $label = NULL) use ($class){
 			return $container[$name] = new $class($label);
 		});
 	}
 
 	/**
 	 * @param array $defaults
+	 *
+	 * @return $this
 	 */
-	public function restore(array $defaults = array())
+	public function restore(array $defaults = [])
 	{
 		$this->setDefaults($defaults, TRUE);
 		$this->setValues($defaults, TRUE);
+
+		return $this;
 	}
 
 	/**
@@ -69,13 +71,13 @@ class Form extends Nette\Application\UI\Form
 	 */
 	public function getValues($asArray = FALSE)
 	{
-		$values = (array) parent::getValues($asArray);
+		$values = (array) parent::getValues(TRUE);
 
 		if (!isset($values['id']) && $this->getId() != NULL) {
 			$values['id'] = $this->getId();
 		}
 
-		return Utils\ArrayHash::from($values);
+		return $asArray ? $values : Utils\ArrayHash::from($values);
 	}
 
 	/**

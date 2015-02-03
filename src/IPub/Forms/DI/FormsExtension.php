@@ -15,31 +15,19 @@
 namespace IPub\Forms\DI;
 
 use Nette;
-use Nette\DI\Compiler;
-use Nette\DI\Configurator;
+use Nette\DI;
 use Nette\PhpGenerator as Code;
 use Nette\Utils;
 
-if (!class_exists('Nette\DI\CompilerExtension')) {
-	class_alias('Nette\Config\CompilerExtension', 'Nette\DI\CompilerExtension');
-	class_alias('Nette\Config\Compiler', 'Nette\DI\Compiler');
-	class_alias('Nette\Config\Helpers', 'Nette\DI\Config\Helpers');
-}
-
-if (isset(Nette\Loaders\NetteLoader::getInstance()->renamed['Nette\Configurator']) || !class_exists('Nette\Configurator')) {
-	unset(Nette\Loaders\NetteLoader::getInstance()->renamed['Nette\Configurator']);
-	class_alias('Nette\Config\Configurator', 'Nette\Configurator');
-}
-
-class FormsExtension extends Nette\DI\CompilerExtension
+class FormsExtension extends DI\CompilerExtension
 {
 	/**
 	 * @var array
 	 */
-	public $defaults = array(
+	protected $defaults = [
 		'classicFormClass'	=> '\IPub\Forms\Application\UI\Form',
 		'entityFormClass'	=> '\IPub\Forms\Application\UI\EntityForm'
-	);
+	];
 
 	/**
 	 * @return void
@@ -54,12 +42,12 @@ class FormsExtension extends Nette\DI\CompilerExtension
 
 		$builder->addDefinition($this->prefix('formFactory'))
 			->setClass('IPub\Forms\FormFactory')
-			->addSetup('setFormClass', array($config['classicFormClass']))
+			->addSetup('setFormClass', [$config['classicFormClass']])
 			->addTag('cms.forms');
 
 		$builder->addDefinition($this->prefix('entityFormFactory'))
 			->setClass('IPub\Forms\EntityFormFactory')
-			->addSetup('setFormClass', array($config['entityFormClass']))
+			->addSetup('setFormClass', [$config['entityFormClass']])
 			->addTag('cms.forms');
 
 		// Install extension latte macros
@@ -68,6 +56,17 @@ class FormsExtension extends Nette\DI\CompilerExtension
 			: $builder->getDefinition('nette.latte');
 
 		$latteFactory
-			->addSetup('IPub\Forms\Latte\Macros::install(?->getCompiler())', array('@self'));
+			->addSetup('IPub\Forms\Latte\Macros::install(?->getCompiler())', ['@self']);
+	}
+
+	/**
+	 * @param Nette\Configurator $config
+	 * @param string $extensionName
+	 */
+	public static function register(Nette\Configurator $config, $extensionName = 'forms')
+	{
+		$config->onCompile[] = function (Nette\Configurator $config, Nette\DI\Compiler $compiler) use ($extensionName) {
+			$compiler->addExtension($extensionName, new FormsExtension());
+		};
 	}
 }

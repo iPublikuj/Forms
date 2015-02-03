@@ -33,9 +33,9 @@ class Macros extends MacroSet
 	{
 		$me = new static($compiler);
 
-		$me->addMacro('label', array($me, 'macroLabel'), array($me, 'macroLabelEnd'));
-		$me->addMacro('button', array($me, 'macroButton'), array($me, 'macroButtonEnd'));
-		$me->addMacro('caption', array($me, 'macroCaption'));
+		$me->addMacro('label', [$me, 'macroLabel'], [$me, 'macroLabelEnd']);
+		$me->addMacro('button', [$me, 'macroButton'], [$me, 'macroButtonEnd']);
+		$me->addMacro('caption', [$me, 'macroCaption']);
 	}
 
 	/**
@@ -47,24 +47,24 @@ class Macros extends MacroSet
 	 *
 	 * @return string
 	 *
-	 * @throws CompileException
+	 * @throws Latte\CompileException
 	 */
 	public function macroLabel(MacroNode $node, PhpWriter $writer)
 	{
 		$words = $node->tokenizer->fetchWords();
 
 		if (!$words) {
-			throw new CompileException("Missing name in {{$node->name}}.");
+			throw new Latte\CompileException("Missing name in {{$node->name}}.");
 		}
 
 		$name = array_shift($words);
 
 		return $writer->write(
-			($name[0] === '$' ? '$_input = is_object(%0.word) ? %0.word : $_form[%0.word]; $attributes = %node.array; if ($_input->required) { $attributes += array("class" => "required"); } if ($_label = $_input' : '$attributes = %node.array; if ($_form[%0.word]->required) { $attributes += array("class" => "required"); } if ($_label = $_form[%0.word]')
+			($name[0] === '$' ? '$_input = is_object(%0.word) ? %0.word : $_form[%0.word]; $attributes = %node.array; if ($_input->required) { $attributes += ["class" => "required"]; } if ($_label = $_input' : '$attributes = %node.array; if ($_form[%0.word]->required) { $attributes += ["class" => "required"]; } if ($_label = $_form[%0.word]')
 			. '->%1.raw) echo $_label'
 			. ($node->tokenizer->isNext() ? '->addAttributes($attributes)' : '->addAttributes($attributes)'),
 			$name,
-			$words ? ('getLabelPart(' . implode(', ', array_map(array($writer, 'formatWord'), $words)) . ')') : 'getLabel()'
+			$words ? ('getLabelPart(' . implode(', ', array_map([$writer, 'formatWord'], $words)) . ')') : 'getLabel()'
 		);
 	}
 

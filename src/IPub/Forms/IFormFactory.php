@@ -19,7 +19,7 @@ use Nette;
 interface IFormFactory
 {
 	/**
-	 * @return \Nette\Application\UI\Form
+	 * @return Nette\Application\UI\Form
 	 */
 	function create();
 }
