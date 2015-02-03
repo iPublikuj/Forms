@@ -25,8 +25,14 @@ class FormsExtension extends DI\CompilerExtension
 	 * @var array
 	 */
 	protected $defaults = [
-		'classicFormClass'	=> '\IPub\Forms\Application\UI\Form',
-		'entityFormClass'	=> '\IPub\Forms\Application\UI\EntityForm'
+		'classicForm'	=> [
+			'class'		=> '\IPub\Forms\Application\UI\Form',
+			'factory'	=> '\IPub\Forms\FormFactory'
+		],
+		'entityForm'	=> [
+			'class'		=> '\IPub\Forms\Application\UI\EntityForm',
+			'factory'	=> '\IPub\Forms\EntityFormFactory',
+		]
 	];
 
 	/**
@@ -37,18 +43,15 @@ class FormsExtension extends DI\CompilerExtension
 		$config = $this->getConfig($this->defaults);
 		$builder = $this->getContainerBuilder();
 
-		Utils\Validators::assertField($config, 'classicFormClass', 'string');
-		Utils\Validators::assertField($config, 'entityFormClass', 'string');
+		foreach($config as $name => $definition) {
+			Utils\Validators::assertField($definition, 'class', 'string');
+			Utils\Validators::assertField($definition, 'factory', 'string');
 
-		$builder->addDefinition($this->prefix('formFactory'))
-			->setClass('IPub\Forms\FormFactory')
-			->addSetup('setFormClass', [$config['classicFormClass']])
-			->addTag('cms.forms');
-
-		$builder->addDefinition($this->prefix('entityFormFactory'))
-			->setClass('IPub\Forms\EntityFormFactory')
-			->addSetup('setFormClass', [$config['entityFormClass']])
-			->addTag('cms.forms');
+			$builder->addDefinition($this->prefix($name))
+				->setClass($definition['factory'])
+				->addSetup('setFormClass', [$definition['class']])
+				->addTag('cms.forms');
+		}
 
 		// Install extension latte macros
 		$latteFactory = $builder->hasDefinition('nette.latteFactory')
