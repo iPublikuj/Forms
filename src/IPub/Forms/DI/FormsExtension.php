@@ -44,13 +44,17 @@ class FormsExtension extends DI\CompilerExtension
 		$builder = $this->getContainerBuilder();
 
 		foreach($config as $name => $definition) {
-			Utils\Validators::assertField($definition, 'class', 'string');
 			Utils\Validators::assertField($definition, 'factory', 'string');
 
-			$builder->addDefinition($this->prefix($name))
+			$factory = $builder->addDefinition($this->prefix($name))
 				->setClass($definition['factory'])
-				->addSetup('setFormClass', [$definition['class']])
 				->addTag('cms.forms');
+
+			// Check if form class is defined
+			if ($definition['class'] && class_exists($definition['class'])) {
+				$factory
+					->addSetup('setFormClass', [$definition['class']]);
+			}
 		}
 
 		// Install extension latte macros
