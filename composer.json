@@ -30,10 +30,10 @@
 	},
 
 	"require-dev": {
-		"nette/nette"		: "~2.2",
-		"nette/tester"		: "@dev",
-		"tracy/tracy"		: "@dev",
-		"janmarek/mockista"	: "@dev"
+		"nette/tester"			: "@dev",
+		"kdyby/doctrine-forms"	: "@dev",
+		"tracy/tracy"			: "~2.2",
+		"janmarek/mockista"		: "@dev"
 	},
 
 	"suggest": {
