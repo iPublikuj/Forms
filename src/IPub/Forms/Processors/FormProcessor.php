@@ -6,13 +6,13 @@
  * @license		http://www.ipublikuj.eu
  * @author		Adam Kadlec http://www.ipublikuj.eu
  * @package		iPublikuj:Forms!
- * @subpackage	common
+ * @subpackage	Processors
  * @since		5.0
  *
  * @date		31.01.14
  */
 
-namespace IPub\Forms;
+namespace IPub\Forms\Processors;
 
 use Nette;
 use Nette\Application;
@@ -29,10 +29,10 @@ abstract class FormProcessor extends Nette\Object implements IFormProcessor
 	 */
 	public function attach(Application\UI\Form $form)
 	{
-		$form->onSubmit[]	= $this->submit;
-		$form->onSuccess[]	= $this->success;
-		$form->onError[]	= $this->error;
-		$form->onValidate[]	= $this->validate;
+		$form->onSubmit[]	= [$this, 'submit'];
+		$form->onSuccess[]	= [$this, 'success'];
+		$form->onError[]	= [$this, 'error'];
+		$form->onValidate[]	= [$this, 'validate'];
 
 		return $this;
 	}

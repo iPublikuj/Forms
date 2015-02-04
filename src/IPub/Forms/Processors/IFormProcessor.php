@@ -6,13 +6,13 @@
  * @license		http://www.ipublikuj.eu
  * @author		Adam Kadlec http://www.ipublikuj.eu
  * @package		iPublikuj:Forms!
- * @subpackage	common
+ * @subpackage	Processors
  * @since		5.0
  *
  * @date		31.01.14
  */
 
-namespace IPub\Forms;
+namespace IPub\Forms\Processors;
 
 use Nette\Application;
 
