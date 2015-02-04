@@ -30,12 +30,13 @@
 	},
 
 	"require-dev": {
+		"nette/bootstrap"		: "~2.2",
+		"nette/mail"			: "~2.2",
+		"nette/safe-stream"		: "~2.2",
 		"nette/tester"			: "@dev",
-		"nette/bootstrap"		: "@dev",
-		"kdyby/doctrine-forms"	: "@dev",
-		"latte/latte"			: "~2.2",
-		"tracy/tracy"			: "~2.2",
-		"janmarek/mockista"		: "@dev"
+		"tracy/tracy"			: "@dev",
+		"janmarek/mockista"		: "@dev",
+		"kdyby/doctrine-forms"	: "@dev"
 	},
 
 	"suggest": {
