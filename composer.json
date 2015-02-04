@@ -33,7 +33,7 @@
 		"nette/tester"			: "@dev",
 		"nette/bootstrap"		: "@dev",
 		"kdyby/doctrine-forms"	: "@dev",
-		"latte/latte"			: "@dev",
+		"latte/latte"			: "~2.2",
 		"tracy/tracy"			: "~2.2",
 		"janmarek/mockista"		: "@dev"
 	},
