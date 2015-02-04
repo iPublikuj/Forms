@@ -17,6 +17,5 @@ $composer['require']['nette/bootstrap'] = $version;
 $composer['require']['nette/di'] = $version;
 $composer['require']['nette/forms'] = $version;
 $composer['require']['nette/utils'] = $version;
-$composer['require']['nette/safe-stream'] = $version;
 $content = json_encode($composer);
 file_put_contents($file, $content);
