@@ -31,6 +31,7 @@
 
 	"require-dev": {
 		"nette/tester"			: "@dev",
+		"nette/bootstrap"		: "@dev",
 		"kdyby/doctrine-forms"	: "@dev",
 		"tracy/tracy"			: "~2.2",
 		"janmarek/mockista"		: "@dev"
