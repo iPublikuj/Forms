@@ -30,8 +30,14 @@
 	},
 
 	"require-dev": {
+		"nette/nette"		: "~2.2",
 		"nette/tester"		: "@dev",
+		"tracy/tracy"		: "@dev",
 		"janmarek/mockista"	: "@dev"
+	},
+
+	"suggest": {
+		"kdyby/doctrine-forms"	: "If you wanna use entity forms."
 	},
 
 	"autoload": {
