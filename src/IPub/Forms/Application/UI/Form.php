@@ -18,6 +18,7 @@ use Nette;
 use Nette\Utils;
 
 use IPub\Forms;
+use IPub\Forms\Processors;
 
 class Form extends Nette\Application\UI\Form
 {
@@ -29,11 +30,11 @@ class Form extends Nette\Application\UI\Form
 	/**
 	 * Set form processor
 	 *
-	 * @param Forms\IFormProcessor $processor
+	 * @param Processors\IFormProcessor $processor
 	 *
 	 * @return $this
 	 */
-	public function addProcessor(Forms\IFormProcessor $processor)
+	public function addProcessor(Processors\IFormProcessor $processor)
 	{
 		$processor->attach($this);
 

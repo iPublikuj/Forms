@@ -1,0 +1,9 @@
+nette:
+	application:
+		mapping:
+			*: IPubTests\Forms\*Presenter
+
+services:
+	# Test presenter
+ 	presenters.test:
+ 		class: IPubTests\Forms\TestPresenter

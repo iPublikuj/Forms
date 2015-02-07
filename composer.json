@@ -1,11 +1,10 @@
 {
-	"name"				: "ipub/forms",
-	"type"				: "library",
-	"description"		: "Add ability to create forms in better way under Nette",
-	"keywords"			: ["nette", "forms"],
-	"homepage"			: "https://github.com/iPublikuj/forms.git",
-	"license"			: ["BSD-3-Clause", "GPL-2.0", "GPL-3.0"],
-	"minimum-stability"	: "dev",
+	"name"			: "ipub/forms",
+	"type"			: "library",
+	"description"	: "Add ability to create forms in better way under Nette",
+	"keywords"		: ["nette", "forms"],
+	"homepage"		: "https://github.com/iPublikuj/forms.git",
+	"license"		: ["BSD-3-Clause", "GPL-2.0", "GPL-3.0"],
 
 	"authors": [
 		{
@@ -14,7 +13,7 @@
 		}
 	],
 
-	"support":{
+	"support": {
 		"email"		:"support@ipublikuj.eu",
 		"issues"	:"https://github.com/iPublikuj/forms/issues"
 	},
@@ -30,8 +29,17 @@
 	},
 
 	"require-dev": {
-		"nette/tester"		: "@dev",
-		"janmarek/mockista"	: "@dev"
+		"nette/bootstrap"		: "~2.2",
+		"nette/mail"			: "~2.2",
+		"nette/safe-stream"		: "~2.2",
+		"nette/tester"			: "@dev",
+		"tracy/tracy"			: "@dev",
+		"janmarek/mockista"		: "@dev",
+		"kdyby/doctrine-forms"	: "@dev"
+	},
+
+	"suggest": {
+		"kdyby/doctrine-forms"	: "If you wanna use entity forms."
 	},
 
 	"autoload": {

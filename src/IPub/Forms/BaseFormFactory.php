@@ -18,6 +18,7 @@ use Nette;
 use Nette\Localization;
 
 use IPub;
+use IPub\Forms\Exceptions;
 
 /**
  * Base form factory
@@ -57,12 +58,12 @@ class BaseFormFactory extends Nette\Object
 	 *
 	 * @return $this
 	 *
-	 * @throws Nette\InvalidArgumentException
+	 * @throws Exceptions\InvalidArgumentException
 	 */
 	public function setFormClass($className)
 	{
 		if (!class_exists($className)) {
-			throw new Nette\InvalidArgumentException('Provided form class name "'. $className .'" doesn\'t exists.');
+			throw new Exceptions\InvalidArgumentException('Provided form class name "'. $className .'" doesn\'t exists.');
 		}
 
 		return $this;
@@ -70,9 +71,15 @@ class BaseFormFactory extends Nette\Object
 
 	/**
 	 * @return Nette\Application\UI\Form
+	 *
+	 * @throws Exceptions\InvalidArgumentException
 	 */
 	public function create()
 	{
+		if (!class_exists($this->formClassName)) {
+			throw new Exceptions\InvalidArgumentException('Factory form class isn\'t defined.');
+		}
+
 		$form = new $this->formClassName;
 
 		if ($this->translator instanceof Localization\ITranslator) {
