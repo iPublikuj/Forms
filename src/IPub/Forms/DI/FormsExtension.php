@@ -58,7 +58,7 @@ class FormsExtension extends DI\CompilerExtension
 		}
 
 		// Install extension latte macros
-		$latteFactory = $builder->getDefinition($builder->getByType('Nette\Bridges\ApplicationLatte\ILatteFactory') ?: $builder->getDefinition('nette.latteFactory');
+		$latteFactory = $builder->getDefinition($builder->getByType('Nette\Bridges\ApplicationLatte\ILatteFactory') ?: 'nette.latteFactory');
 
 		$latteFactory
 			->addSetup('IPub\Forms\Latte\Macros::install(?->getCompiler())', ['@self']);
