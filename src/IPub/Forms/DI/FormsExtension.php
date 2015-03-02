@@ -40,6 +40,7 @@ class FormsExtension extends DI\CompilerExtension
 	 */
 	public function loadConfiguration()
 	{
+		$config = $this->getConfig($this->defaults);
 		$builder = $this->getContainerBuilder();
 
 		foreach($config as $name => $definition) {
@@ -59,7 +60,6 @@ class FormsExtension extends DI\CompilerExtension
 	
 	public function beforeCompile()
 	{
-		$config = $this->getConfig($this->defaults);
 		$builder = $this->getContainerBuilder();
 
 		// Install extension latte macros
