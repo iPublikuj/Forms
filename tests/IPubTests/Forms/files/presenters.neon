@@ -8,4 +8,4 @@ services:
 	presenters.test:
 		class: IPubTests\Forms\TestPresenter
 
-	router: IPubTests\ConfirmationDialog\RouterFactory::createRouter
+	router: IPubTests\Forms\RouterFactory::createRouter
