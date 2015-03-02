@@ -17,6 +17,7 @@ namespace IPubTests\Forms;
 
 use Nette;
 use Nette\Application;
+use Nette\Application\Routers;
 use Nette\Application\UI;
 use Nette\Utils;
 
@@ -236,6 +237,20 @@ class CustomFormProcessor extends Forms\Processors\FormProcessor
 		{
 			$form->getPresenter()->flashMessage($error, 'error');
 		}
+	}
+}
+
+class RouterFactory
+{
+	/**
+	 * @return \Nette\Application\IRouter
+	 */
+	public static function createRouter()
+	{
+		$router = new Routers\  RouteList();
+		$router[] = new Routers\Route('<presenter>/<action>[/<id>]', 'Test:default');
+
+		return $router;
 	}
 }
 
