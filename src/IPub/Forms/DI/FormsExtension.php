@@ -56,6 +56,12 @@ class FormsExtension extends DI\CompilerExtension
 					->addSetup('setFormClass', [$definition['class']]);
 			}
 		}
+	}
+	
+	public function beforeCompile()
+	{
+		$config = $this->getConfig($this->defaults);
+		$builder = $this->getContainerBuilder();
 
 		// Install extension latte macros
 		$latteFactory = $builder->getDefinition($builder->getByType('\Nette\Bridges\ApplicationLatte\ILatteFactory') ?: 'nette.latteFactory');
