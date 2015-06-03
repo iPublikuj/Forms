@@ -5,7 +5,7 @@
 [![Latest Stable Version](https://img.shields.io/packagist/v/ipub/forms.svg?style=flat-square)](https://packagist.org/packages/ipub/forms)
 [![Composer Downloads](https://img.shields.io/packagist/dt/ipub/forms.svg?style=flat-square)](https://packagist.org/packages/ipub/forms)
 
-This extension extend classic forms with forms factories, so forms could be created in better way under [Nette Framework](http://nette.org/)
+Add ability to create forms in better way in [Nette Framework](http://nette.org/)
 
 ## Installation
 
