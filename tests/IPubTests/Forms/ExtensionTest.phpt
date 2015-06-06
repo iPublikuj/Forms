@@ -45,13 +45,13 @@ class ExtensionTest extends Tester\TestCase
 		$dic = $this->createContainer();
 
 		// Get classic form factory
-		$factory = $dic->getService('forms.classicForm');
+		$factory = $dic->getService('extendedForms.classicForm');
 
 		Assert::true($factory instanceof IPub\Forms\IFormFactory);
 		Assert::true($factory->create() instanceof IPub\Forms\Application\UI\Form);
 
 		// Get entity form factory
-		$factory = $dic->getService('forms.entityForm');
+		$factory = $dic->getService('extendedForms.entityForm');
 
 		Assert::true($factory instanceof IPub\Forms\IEntityFormFactory);
 		Assert::true($factory->create() instanceof IPub\Forms\Application\UI\EntityForm);
