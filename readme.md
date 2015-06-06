@@ -11,25 +11,15 @@ Add ability to create forms in better way in [Nette Framework](http://nette.org/
 
 The best way to install ipub/forms is using  [Composer](http://getcomposer.org/):
 
-```json
-{
-	"require": {
-		"ipub/forms": "dev-master"
-	}
-}
-```
-
-or
-
 ```sh
-$ composer require ipub/forms:@dev
+$ composer require ipub/forms
 ```
 
 After that you have to register extension in config.neon.
 
 ```neon
 extensions:
-	forms: IPub\Forms\DI\FormsExtension
+	extendedForms: IPub\Forms\DI\FormsExtension
 ```
 
 ## Configuration
@@ -37,7 +27,7 @@ extensions:
 In configuration neon you can define your forms with factories:
 
 ```neon
-	forms:
+	extendedForms:
 		yourFormName:
 			class	: '\Your\Namespace\To\Form\Class'
 			factory	: '\Your\Namespace\To\Form\Factory'
