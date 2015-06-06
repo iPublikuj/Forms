@@ -23,7 +23,7 @@ use IPub\Forms\Processors;
 class Form extends Nette\Application\UI\Form
 {
 	/**
-	 * @var int
+	 * @var mixed
 	 */
 	protected $id;
 
@@ -96,7 +96,7 @@ class Form extends Nette\Application\UI\Form
 	 */
 	public function setId($id)
 	{
-		$this->id = (int) $id;
+		$this->id = $id;
 
 		return $this;
 	}
