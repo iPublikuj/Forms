@@ -66,6 +66,8 @@ class BaseFormFactory extends Nette\Object
 			throw new Exceptions\InvalidArgumentException('Provided form class name "'. $className .'" doesn\'t exists.');
 		}
 
+		$this->formClassName = $className;
+
 		return $this;
 	}
 
