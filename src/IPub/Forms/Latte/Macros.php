@@ -33,7 +33,7 @@ class Macros extends MacroSet
 	{
 		$me = new static($compiler);
 
-		$me->addMacro('label', [$me, 'macroLabel'], [$me, 'macroLabelEnd']);
+		//$me->addMacro('label', [$me, 'macroLabel'], [$me, 'macroLabelEnd']);
 		$me->addMacro('button', [$me, 'macroButton'], [$me, 'macroButtonEnd']);
 		$me->addMacro('caption', [$me, 'macroCaption']);
 	}
@@ -60,7 +60,7 @@ class Macros extends MacroSet
 		$name = array_shift($words);
 
 		return $writer->write(
-			($name[0] === '$' ? '$_input = is_object(%0.word) ? %0.word : $_form[%0.word]; $attributes = %node.array; if ($_input->required) { $attributes += ["class" => "required"]; } if ($_label = $_input' : '$attributes = %node.array; if ($_form[%0.word]->required) { $attributes += ["class" => "required"]; } if ($_label = $_form[%0.word]')
+			($name[0] === '$' ? '$_input = is_object(%0.word) ? %0.word : end($this->global->formsStack)[%0.word]; $attributes = %node.array; if ($_input->required) { $attributes += ["class" => "required"]; } if ($_label = $_input' : '$attributes = %node.array; if (end($this->global->formsStack)[%0.word]->required) { $attributes += ["class" => "required"]; } if ($_label = end($this->global->formsStack)[%0.word]')
 			. '->%1.raw) echo $_label'
 			. ($node->tokenizer->isNext() ? '->addAttributes($attributes)' : '->addAttributes($attributes)'),
 			$name,
@@ -96,7 +96,7 @@ class Macros extends MacroSet
 	 */
 	public function macroButton(MacroNode $node, PhpWriter $writer)
 	{
-		$code = '$_input = (is_object(%node.word) ? %node.word : $_form[%node.word]);';
+		$code = '$_input = (is_object(%node.word) ? %node.word : end($this->global->formsStack)[%node.word]);';
 		$code .= '$_attributes[$_input->getName()] = %node.array;';
 		$code .= '$_buttonAttrs = $_input->getControl()->attrs;';
 		$code .= '$_buttonCaption = isset($_buttonAttrs[\'value\']) === TRUE ? $_buttonAttrs[\'value\'] : NULL;';
@@ -140,7 +140,7 @@ class Macros extends MacroSet
 	public function macroCaption(MacroNode $node, PhpWriter $writer)
 	{
 		if ($node->args !== '') {
-			$code = '$_input = (is_object(%node.word) ? %node.word : $_form[%node.word]);';
+			$code = '$_input = (is_object(%node.word) ? %node.word : end($this->global->formsStack)[%node.word]);';
 			$code .= 'echo isset($_input->getControl()->attrs[\'value\']) === TRUE ? $_input->getControl()->attrs[\'value\'] : NULL;';
 			$code .= 'unset($_input);';
 

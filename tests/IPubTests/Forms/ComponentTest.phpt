@@ -247,7 +247,7 @@ class RouterFactory
 	 */
 	public static function createRouter()
 	{
-		$router = new Routers\  RouteList();
+		$router = new Routers\RouteList();
 		$router[] = new Routers\Route('<presenter>/<action>[/<id>]', 'Test:default');
 
 		return $router;
