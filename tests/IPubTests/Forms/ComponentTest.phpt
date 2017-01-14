@@ -225,8 +225,8 @@ class TestPresenter extends UI\Presenter
 		$form->addText('name', 'Name')
 			->setRequired('User full name is required.');
 
-		$form->onSuccess[] = [$this, 'success'];
-		$form->onError[] = [$this, 'error'];
+		$form->onSuccess[] = [$this, 'formSuccess'];
+		$form->onError[] = [$this, 'formError'];
 
 		return $form;
 	}
@@ -234,7 +234,7 @@ class TestPresenter extends UI\Presenter
 	/**
 	 * @return void
 	 */
-	public function success(UI\Form $form, Utils\ArrayHash $values)
+	public function formSuccess(UI\Form $form, Utils\ArrayHash $values)
 	{
 		$form->getPresenter()->flashMessage('Username:' . $values->username . '|Password:' . $values->password . '|Name:' . $values->name);
 	}
@@ -242,7 +242,7 @@ class TestPresenter extends UI\Presenter
 	/**
 	 * @return void
 	 */
-	public function error(UI\Form $form)
+	public function formError(UI\Form $form)
 	{
 		foreach ($form->getErrors() as $error) {
 			$form->getPresenter()->flashMessage($error, 'error');
