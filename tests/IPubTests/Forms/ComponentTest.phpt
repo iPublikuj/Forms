@@ -44,6 +44,11 @@ class ComponentTest extends Tester\TestCase
 	private $container;
 
 	/**
+	 * @var string
+	 */
+	private $doVar = '_do';
+
+	/**
 	 * @return array
 	 */
 	public function dataFormValues() : array
@@ -77,6 +82,12 @@ class ComponentTest extends Tester\TestCase
 
 		// Get presenter factory from container
 		$this->presenterFactory = $this->container->getByType(Application\IPresenterFactory::class);
+
+		$version = getenv('NETTE');
+
+		if ($version !== 'default') {
+			$this->doVar = 'do';
+		}
 	}
 
 	public function testCreatingForm()
@@ -110,10 +121,10 @@ class ComponentTest extends Tester\TestCase
 
 		// Create GET request
 		$request = new Application\Request('Test', 'POST', ['action' => 'process'], [
-			'do'       => 'userForm-submit',
-			'name'     => $name,
-			'username' => $username,
-			'password' => $password
+			$this->doVar => 'userForm-submit',
+			'name'       => $name,
+			'username'   => $username,
+			'password'   => $password
 		]);
 		// & fire presenter & catch response
 		$response = $presenter->run($request);
@@ -136,10 +147,10 @@ class ComponentTest extends Tester\TestCase
 
 		// Create GET request
 		$request = new Application\Request('Test', 'POST', ['action' => 'process'], [
-			'do'       => 'userForm-submit',
-			'name'     => $name,
-			'username' => $username,
-			'password' => $password
+			$this->doVar => 'userForm-submit',
+			'name'       => $name,
+			'username'   => $username,
+			'password'   => $password
 		]);
 		// & fire presenter & catch response
 		$response = $presenter->run($request);
