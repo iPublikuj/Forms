@@ -2,14 +2,14 @@
 /**
  * FormMacros.php
  *
- * @copyright	More in license.md
- * @license		http://www.ipublikuj.eu
- * @author		Adam Kadlec http://www.ipublikuj.eu
- * @package		iPublikuj:Forms!
- * @subpackage	Latte
- * @since		5.0
+ * @copyright      More in license.md
+ * @license        http://www.ipublikuj.eu
+ * @author         Adam Kadlec http://www.ipublikuj.eu
+ * @package        iPublikuj:Forms!
+ * @subpackage     Latte
+ * @since          1.0.0
  *
- * @date		31.01.14
+ * @date           31.01.14
  */
 
 namespace IPub\Forms\Latte;
@@ -24,7 +24,15 @@ use Latte\Macros\MacroSet;
 
 use IPub;
 
-class Macros extends MacroSet
+/**
+ * Forms additional latte macros
+ *
+ * @package        iPublikuj:Forms!
+ * @subpackage     Latte
+ *
+ * @author         Adam Kadlec <adam.kadlec@fastybird.com>
+ */
+final class Macros extends MacroSet
 {
 	/**
 	 * Register latte macros
@@ -33,56 +41,8 @@ class Macros extends MacroSet
 	{
 		$me = new static($compiler);
 
-		//$me->addMacro('label', [$me, 'macroLabel'], [$me, 'macroLabelEnd']);
 		$me->addMacro('button', [$me, 'macroButton'], [$me, 'macroButtonEnd']);
 		$me->addMacro('caption', [$me, 'macroCaption']);
-	}
-
-	/**
-	 * Renders label beggining tag
-	 * {label ...}
-	 *
-	 * @param MacroNode $node
-	 * @param PhpWriter $writer
-	 *
-	 * @return string
-	 *
-	 * @throws Latte\CompileException
-	 */
-	public function macroLabel(MacroNode $node, PhpWriter $writer)
-	{
-		$words = $node->tokenizer->fetchWords();
-
-		if (!$words) {
-			throw new Latte\CompileException("Missing name in {{$node->name}}.");
-		}
-
-		$name = array_shift($words);
-
-		return $writer->write(
-			($name[0] === '$' ? '$_input = is_object(%0.word) ? %0.word : end($this->global->formsStack)[%0.word]; $attributes = %node.array; if ($_input->required) { $attributes += ["class" => "required"]; } if ($_label = $_input' : '$attributes = %node.array; if (end($this->global->formsStack)[%0.word]->required) { $attributes += ["class" => "required"]; } if ($_label = end($this->global->formsStack)[%0.word]')
-			. '->%1.raw) echo $_label'
-			. ($node->tokenizer->isNext() ? '->addAttributes($attributes)' : '->addAttributes($attributes)'),
-			$name,
-			$words ? ('getLabelPart(' . implode(', ', array_map([$writer, 'formatWord'], $words)) . ')') : 'getLabel()'
-		);
-	}
-
-	/**
-	 * Renders label end tag
-	 * {/label}
-	 *
-	 * @param MacroNode $node
-	 * @param PhpWriter $writer
-	 *
-	 * @return string
-	 */
-	public function macroLabelEnd(MacroNode $node, PhpWriter $writer)
-	{
-		if ($node->content != NULL) {
-			$node->openingCode = rtrim($node->openingCode, '?> ') . '->startTag() ?>';
-			return $writer->write('if ($_label) echo $_label->endTag()');
-		}
 	}
 
 	/**

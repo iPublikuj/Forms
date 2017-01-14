@@ -3,15 +3,17 @@
  * Test: IPub\Forms\Compiler
  * @testCase
  *
- * @copyright	More in license.md
- * @license		http://www.ipublikuj.eu
- * @author		Adam Kadlec http://www.ipublikuj.eu
- * @package		iPublikuj:Forms!
- * @subpackage	Tests
- * @since		5.0
+ * @copyright      More in license.md
+ * @license        http://www.ipublikuj.eu
+ * @author         Adam Kadlec http://www.ipublikuj.eu
+ * @package        iPublikuj:Forms!
+ * @subpackage     Tests
+ * @since          1.0.0
  *
- * @date		30.01.15
+ * @date           30.01.15
  */
+
+declare(strict_types = 1);
 
 namespace IPubTests\Forms;
 
@@ -27,17 +29,17 @@ use Tester\Assert;
 use IPub;
 use IPub\Forms;
 
-require __DIR__ . '/../bootstrap.php';
+require __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'bootstrap.php';
 
 class ComponentTest extends Tester\TestCase
 {
 	/**
-	 * @var Nette\Application\IPresenterFactory
+	 * @var Application\IPresenterFactory
 	 */
 	private $presenterFactory;
 
 	/**
-	 * @var \SystemContainer|\Nette\DI\Container
+	 * @var Nette\DI\Container
 	 */
 	private $container;
 
@@ -59,7 +61,7 @@ class ComponentTest extends Tester\TestCase
 	}
 
 	/**
-	 * Set up
+	 * @return void
 	 */
 	public function setUp()
 	{
@@ -68,7 +70,7 @@ class ComponentTest extends Tester\TestCase
 		$this->container = $this->createContainer();
 
 		// Get presenter factory from container
-		$this->presenterFactory = $this->container->getByType('Nette\Application\IPresenterFactory');
+		$this->presenterFactory = $this->container->getByType(Application\IPresenterFactory::class);
 	}
 
 	public function testCreatingForm()
@@ -77,7 +79,7 @@ class ComponentTest extends Tester\TestCase
 		$presenter = $this->createPresenter();
 
 		// Create GET request
-		$request = new Application\Request('Test', 'GET', array('action' => 'default'));
+		$request = new Application\Request('Test', 'GET', ['action' => 'default']);
 		// & fire presenter & catch response
 		$response = $presenter->run($request);
 
@@ -102,15 +104,15 @@ class ComponentTest extends Tester\TestCase
 
 		// Create GET request
 		$request = new Application\Request('Test', 'POST', ['action' => 'process'], [
-			'do'		=> 'userForm-submit',
-			'name'		=> $name,
-			'username'	=> $username,
-			'password'	=> $password
+			'do'       => 'userForm-submit',
+			'name'     => $name,
+			'username' => $username,
+			'password' => $password
 		]);
 		// & fire presenter & catch response
 		$response = $presenter->run($request);
 
-		Assert::equal('Username:'. $username .'|Password:'. $password .'|Name:'. $name, (string) $response->getSource());
+		Assert::equal('Username:' . $username . '|Password:' . $password . '|Name:' . $name, (string) $response->getSource());
 	}
 
 	/**
@@ -128,10 +130,10 @@ class ComponentTest extends Tester\TestCase
 
 		// Create GET request
 		$request = new Application\Request('Test', 'POST', ['action' => 'process'], [
-			'do'		=> 'userForm-submit',
-			'name'		=> $name,
-			'username'	=> $username,
-			'password'	=> $password
+			'do'       => 'userForm-submit',
+			'name'     => $name,
+			'username' => $username,
+			'password' => $password
 		]);
 		// & fire presenter & catch response
 		$response = $presenter->run($request);
@@ -153,16 +155,16 @@ class ComponentTest extends Tester\TestCase
 	}
 
 	/**
-	 * @return \SystemContainer|\Nette\DI\Container
+	 * @return Nette\DI\Container
 	 */
-	protected function createContainer()
+	protected function createContainer() : Nette\DI\Container
 	{
 		$config = new Nette\Configurator();
 		$config->setTempDirectory(TEMP_DIR);
 
 		Forms\DI\FormsExtension::register($config);
 
-		$config->addConfig(__DIR__ . '/files/presenters.neon', $config::NONE);
+		$config->addConfig(__DIR__ . DS . 'files' . DS . 'presenters.neon');
 
 		return $config->createContainer();
 	}
@@ -175,12 +177,18 @@ class TestPresenter extends UI\Presenter
 	 */
 	protected $factory;
 
+	/**
+	 * @return void
+	 */
 	public function renderDefault()
 	{
 		// Set template for component testing
-		$this->template->setFile(__DIR__ . DIRECTORY_SEPARATOR .'templates'. DIRECTORY_SEPARATOR .'default.latte');
+		$this->template->setFile(__DIR__ . DS . 'templates' . DS . 'default.latte');
 	}
 
+	/**
+	 * @return void
+	 */
 	public function renderProcess()
 	{
 		// Get all flashes
@@ -207,7 +215,7 @@ class TestPresenter extends UI\Presenter
 	protected function createComponentUserForm()
 	{
 		// Init form object
-		$form = $this->factory->create();
+		$form = $this->factory->create(UI\Form::class);
 
 		$form->addText('username', 'Username')
 			->setRequired('This field is required.');
@@ -217,24 +225,26 @@ class TestPresenter extends UI\Presenter
 		$form->addText('name', 'Name')
 			->setRequired('User full name is required.');
 
-		// Attach processor
-		$form->addProcessor(new CustomFormProcessor());
+		$form->onSuccess[] = [$this, 'success'];
+		$form->onError[] = [$this, 'error'];
 
 		return $form;
 	}
-}
 
-class CustomFormProcessor extends Forms\Processors\FormProcessor
-{
+	/**
+	 * @return void
+	 */
 	public function success(UI\Form $form, Utils\ArrayHash $values)
 	{
-		$form->getPresenter()->flashMessage('Username:'. $values->username .'|Password:'. $values->password .'|Name:'. $values->name);
+		$form->getPresenter()->flashMessage('Username:' . $values->username . '|Password:' . $values->password . '|Name:' . $values->name);
 	}
 
+	/**
+	 * @return void
+	 */
 	public function error(UI\Form $form)
 	{
-		foreach($form->getErrors() as $error)
-		{
+		foreach ($form->getErrors() as $error) {
 			$form->getPresenter()->flashMessage($error, 'error');
 		}
 	}

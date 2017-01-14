@@ -25,10 +25,12 @@ use IPub;
 use IPub\Forms\Exceptions;
 
 /**
- * Class TEntity
- * @package IPub\Forms\Application\UI
+ * Form trait for entity binding
  *
- * @property ORM\EntityManager $entityManager
+ * @package        iPublikuj:Forms!
+ * @subpackage     Forms
+ *
+ * @author         Adam Kadlec <adam.kadlec@ipublikuj.eu>
  *
  * @method Nette\Application\UI\Form getForm($need = TRUE)
  * @method setValues($values, $erase = FALSE)
@@ -39,18 +41,6 @@ trait TEntityContainer
 	 * @var mixed
 	 */
 	private $entity;
-
-	/**
-	 * @param ORM\EntityManager $entityManager
-	 *
-	 * @return $this
-	 */
-	public function injectEntityManager(ORM\EntityManager $entityManager)
-	{
-		$this->entityManager = $entityManager;
-
-		return $this;
-	}
 
 	/**
 	 * @param array|\Traversable $values
@@ -76,6 +66,10 @@ trait TEntityContainer
 	public function setEntity($entity)
 	{
 		$this->entity = $entity;
+
+		if (method_exists($entity, 'getId')) {
+			$this->setId((string) $entity->getId());
+		}
 	}
 
 	/**
@@ -131,7 +125,7 @@ trait TEntityContainer
 					}
 				}
 
-			} else if ($component instanceof Forms\Container) {
+			} elseif ($component instanceof Forms\Container) {
 				if (($classMetadata->hasField($name) || $classMetadata->hasAssociation($name)) && $value = $classMetadata->getFieldValue($entity, $name)) {
 					if (is_object($value) && $this->isEntity($value)) {
 						$this->bindEntity($component, $value, $erase);
@@ -168,10 +162,10 @@ trait TEntityContainer
 	 *
 	 * @throws Exceptions\InvalidArgumentException
 	 */
-	private function getMetadata($entity)
+	private function getMetadata($entity) : ORM\Mapping\ClassMetadata
 	{
 		if (!$this->isEntity($entity)) {
-			throw new Exceptions\InvalidArgumentException('Expected object, ' . gettype($entity) . ' given.');
+			throw new Exceptions\InvalidArgumentException(sprintf('Expected object, "%s" given.', gettype($entity)));
 		}
 
 		return $this->entityManager->getClassMetadata(get_class($entity));
@@ -182,13 +176,13 @@ trait TEntityContainer
 	 *
 	 * @return bool
 	 */
-	private function isEntity($entity)
+	private function isEntity($entity) : bool
 	{
 		return is_object($entity) && $this->entityManager->getMetadataFactory()->hasMetadataFor(get_class($entity));
 	}
 
 	/**
-	 * @param Nette\Forms\Controls\BaseControl|Nette\Forms\Container $formElement
+	 * @param Forms\IControl|Forms\Container $formElement
 	 *
 	 * @return array|\ArrayIterator
 	 *
@@ -203,7 +197,7 @@ trait TEntityContainer
 			return [$formElement];
 
 		} else {
-			throw new Exceptions\InvalidArgumentException('Expected Nette\Forms\Container or Nette\Forms\IControl, but ' . get_class($formElement) . ' given');
+			throw new Exceptions\InvalidArgumentException(sprintf('Expected Nette\Forms\Container or Nette\Forms\IControl, but "%s" given', get_class($formElement)));
 		}
 	}
 }

@@ -7,7 +7,7 @@
  * @author         Adam Kadlec http://www.ipublikuj.eu
  * @package        iPublikuj:Forms!
  * @subpackage     common
- * @since          5.0
+ * @since          1.0.0
  *
  * @date           31.01.14
  */
@@ -17,11 +17,20 @@ declare(strict_types = 1);
 namespace IPub\Forms\DI;
 
 use Nette;
+use Nette\Bridges;
 use Nette\DI;
 
 use IPub;
 use IPub\Forms;
 
+/**
+ * Form extension container
+ *
+ * @package        iPublikuj:Forms!
+ * @subpackage     DI
+ *
+ * @author         Adam Kadlec <adam.kadlec@ipublikuj.eu>
+ */
 final class FormsExtension extends DI\CompilerExtension
 {
 	/**
@@ -32,7 +41,7 @@ final class FormsExtension extends DI\CompilerExtension
 		$builder = $this->getContainerBuilder();
 
 		$builder->addDefinition($this->prefix('factory'))
-			->setClass(Forms\FormFactory::CLASS_NAME)
+			->setClass(Forms\FormFactory::class)
 			->addTag('cms.forms');
 	}
 
@@ -46,7 +55,7 @@ final class FormsExtension extends DI\CompilerExtension
 		$builder = $this->getContainerBuilder();
 
 		// Install extension latte macros
-		$latteFactory = $builder->getDefinition($builder->getByType('\Nette\Bridges\ApplicationLatte\ILatteFactory') ?: 'nette.latteFactory');
+		$latteFactory = $builder->getDefinition($builder->getByType(Bridges\ApplicationLatte\ILatteFactory::class) ?: 'nette.latteFactory');
 
 		$latteFactory->addSetup('IPub\Forms\Latte\Macros::install(?->getCompiler())', ['@self']);
 	}
@@ -54,6 +63,8 @@ final class FormsExtension extends DI\CompilerExtension
 	/**
 	 * @param Nette\Configurator $config
 	 * @param string $extensionName
+	 *
+	 * @return void
 	 */
 	public static function register(Nette\Configurator $config, string $extensionName = 'extendedForms')
 	{

@@ -1,6 +1,6 @@
 <?php
 /**
- * TEntityContainer.php
+ * EntityContainer.php
  *
  * @copyright      More in license.md
  * @license        http://www.ipublikuj.eu
@@ -21,7 +21,15 @@ use Doctrine\ORM;
 use Nette;
 use Nette\Forms;
 
-class Container extends Forms\Container
+/**
+ * Form container with entity support
+ *
+ * @package        iPublikuj:Forms!
+ * @subpackage     Forms
+ *
+ * @author         Adam Kadlec <adam.kadlec@ipublikuj.eu>
+ */
+class EntityContainer extends Forms\Container
 {
 	/**
 	 * Implement entity handling in form
@@ -48,9 +56,9 @@ class Container extends Forms\Container
 	 *
 	 * @param string $name
 	 *
-	 * @return Container
+	 * @return EntityContainer
 	 */
-	public function addContainer($name) : Container
+	public function addContainer($name) : EntityContainer
 	{
 		$control = new self($this->entityManager);
 		$control->setCurrentGroup($this->currentGroup);

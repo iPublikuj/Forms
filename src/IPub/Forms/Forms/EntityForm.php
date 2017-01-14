@@ -22,6 +22,14 @@ use Nette;
 use Nette\Application;
 use Nette\ComponentModel;
 
+/**
+ * Form with entity support
+ *
+ * @package        iPublikuj:Forms!
+ * @subpackage     Forms
+ *
+ * @author         Adam Kadlec <adam.kadlec@ipublikuj.eu>
+ */
 class EntityForm extends Application\UI\Form
 {
 	/**
@@ -41,16 +49,9 @@ class EntityForm extends Application\UI\Form
 
 	/**
 	 * @param ORM\EntityManager $entityManager
-	 * @param ComponentModel\IContainer|NULL $parent
-	 * @param string|NULL $name
 	 */
-	public function __construct(
-		ORM\EntityManager $entityManager,
-		ComponentModel\IContainer $parent = NULL,
-		string $name = NULL
-	) {
-		parent::__construct($parent, $name);
-
+	public function injectEntityManager(ORM\EntityManager $entityManager)
+	{
 		$this->entityManager = $entityManager;
 	}
 
@@ -59,13 +60,21 @@ class EntityForm extends Application\UI\Form
 	 *
 	 * @param string $name
 	 *
-	 * @return Container
+	 * @return EntityContainer
 	 */
-	public function addContainer($name) : Container
+	public function addContainer($name) : EntityContainer
 	{
-		$control = new Container($this->entityManager);
+		$control = new EntityContainer($this->entityManager);
 		$control->setCurrentGroup($this->currentGroup);
 
 		return $this[$name] = $control;
+	}
+
+	/**
+	 * @return ORM\EntityManager
+	 */
+	protected function getEntityManager() : ORM\EntityManager
+	{
+		return $this->entityManager;
 	}
 }

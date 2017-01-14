@@ -26,14 +26,11 @@ use Nette\Localization;
  *
  * @package        iPublikuj:Forms!
  * @subpackage     common
+ *
+ * @author         Adam Kadlec <adam.kadlec@fastybird.com>
  */
 final class FormFactory implements IFormFactory
 {
-	/**
-	 * Define class name
-	 */
-	const CLASS_NAME = __CLASS__;
-
 	/**
 	 * @var Localization\ITranslator
 	 */
@@ -67,6 +64,7 @@ final class FormFactory implements IFormFactory
 
 		/** @var Application\UI\Form $form */
 		$form = $this->container->createInstance($formClassName, $args);
+		$this->container->callInjects($form);
 
 		if ($this->translator instanceof Localization\ITranslator) {
 			$form->setTranslator($this->translator);

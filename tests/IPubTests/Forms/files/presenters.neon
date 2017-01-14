@@ -1,7 +1,6 @@
-nette:
-	application:
-		mapping:
-			*: IPubTests\Forms\*Presenter
+application:
+	mapping:
+		*: IPubTests\Forms\*Presenter
 
 services:
 	# Test presenter

@@ -4,7 +4,7 @@
 	"description"	: "Add ability to create forms in better way in Nette Framework",
 	"keywords"		: ["nette", "forms", "ipub", "ipublikuj", "doctrine"],
 	"homepage"		: "https://github.com/iPublikuj/forms",
-	"license"		: ["BSD-3-Clause", "GPL-2.0", "GPL-3.0"],
+	"license"		: ["GPL-2.0", "GPL-3.0"],
 
 	"authors": [
 		{
@@ -19,29 +19,36 @@
 		"issues"	:"https://github.com/iPublikuj/forms/issues"
 	},
 
+	"extra": {
+		"ipub"	: {
+			"configuration" : {
+				"extensions" : {
+					"extendedForms" : "IPub\\Forms\\DI\\FormsExtension"
+				}
+			}
+		}
+	},
+
 	"require": {
-		"php"				: ">=5.4.0",
-		"nette/application"	: "~2.2",
-		"nette/di"			: "~2.2",
-		"nette/forms"		: "~2.2",
-		"nette/http"		: "~2.2",
-		"nette/utils"		: "~2.2",
-		"latte/latte"		: "~2.2"
+		"php"	: ">=7.0.0",
+
+		"nette/application"	: "~2.3",
+		"nette/di"			: "~2.3",
+		"nette/forms"		: "~2.3",
+		"nette/http"		: "~2.3",
+		"nette/utils"		: "~2.3",
+
+		"latte/latte"	: "~2.3"
 	},
 
 	"require-dev": {
-		"nette/bootstrap"		: "~2.2",
-		"nette/mail"			: "~2.2",
-		"nette/robot-loader"		: "~2.2",
-		"nette/safe-stream"		: "~2.2",
+		"nette/bootstrap"		: "~2.3",
+		"nette/mail"			: "~2.3",
+		"nette/robot-loader"	: "~2.3",
+		"nette/safe-stream"		: "~2.3",
 		"nette/tester"			: "@dev",
-		"tracy/tracy"			: "@dev",
-		"janmarek/mockista"		: "@dev",
-		"kdyby/doctrine-forms"		: "@dev"
-	},
 
-	"suggest": {
-		"kdyby/doctrine-forms"	: "If you wanna use entity forms."
+		"tracy/tracy"	: "@dev"
 	},
 
 	"autoload": {

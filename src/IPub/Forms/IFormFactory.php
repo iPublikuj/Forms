@@ -16,22 +16,16 @@ declare(strict_types = 1);
 
 namespace IPub\Forms;
 
-use Nette;
-use Nette\Application;
-
 /**
  * Form factory interface
  *
  * @package        iPublikuj:Forms!
  * @subpackage     common
+ *
+ * @author         Adam Kadlec <adam.kadlec@fastybird.com>
  */
 interface IFormFactory
 {
-	/**
-	 * Define class name
-	 */
-	const INTERFACE_NAME = __CLASS__;
-
 	/**
 	 * @param string $formClassName
 	 * @param array ...$args

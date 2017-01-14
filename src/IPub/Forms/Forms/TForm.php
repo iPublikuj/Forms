@@ -18,8 +18,15 @@ use Nette;
 use Nette\Utils;
 
 use IPub\Forms;
-use IPub\Forms\Processors;
 
+/**
+ * Form trait for decorating form
+ *
+ * @package        iPublikuj:Forms!
+ * @subpackage     Forms
+ *
+ * @author         Adam Kadlec <adam.kadlec@ipublikuj.eu>
+ */
 trait TForm
 {
 	/**
@@ -28,15 +35,9 @@ trait TForm
 	protected $id;
 
 	/**
-	 * @param string $name
-	 * @param string $class
+	 * @var string|NULL
 	 */
-	protected function addExtension(string $name, string $class)
-	{
-		Nette\Forms\Container::extensionMethod($name, function (Nette\Forms\Container $container, $name, $label = NULL) use ($class) {
-			return $container[$name] = new $class($label);
-		});
-	}
+	protected $errorClass = NULL;
 
 	/**
 	 * @param array $defaults
@@ -61,5 +62,58 @@ trait TForm
 	public function setId($id)
 	{
 		$this->id = $id;
+	}
+
+	/**
+	 * @param string $errorClass
+	 *
+	 * @return void
+	 */
+	public function setErrorClass(string $errorClass)
+	{
+		$this->errorClass = $errorClass;
+	}
+
+	/**
+	 * @return void
+	 */
+	protected function beforeRender()
+	{
+		parent::beforeRender();
+
+		/** @var Nette\Forms\Controls\BaseControl $control */
+		foreach ($this->getControls() as $control) {
+			$inputClass = [];
+
+			if ($control->isRequired()) {
+				$control->getLabelPrototype()->appendAttribute('required', 'required');
+				$control->getLabelPrototype()->appendAttribute('class', 'ipub-field-required');
+
+				$inputClass[] = 'ipub-field-required';
+			}
+
+			if ($control->hasErrors()) {
+				$inputClass[] = 'ipub-field-error';
+
+				if ($this->errorClass) {
+					$inputClass[] = $this->errorClass;
+				}
+			}
+
+			$control->getControlPrototype()->addAttributes(['class' => $inputClass]);
+		}
+	}
+
+	/**
+	 * @param string $name
+	 * @param string $class
+	 *
+	 * @return void
+	 */
+	protected function addExtension(string $name, string $class)
+	{
+		Nette\Forms\Container::extensionMethod($name, function (Nette\Forms\Container $container, $name, $label = NULL) use ($class) {
+			return $container[$name] = new $class($label);
+		});
 	}
 }

@@ -19,6 +19,14 @@ namespace IPub\Forms\Forms;
 use Nette;
 use Nette\Application;
 
+/**
+ * Classic form
+ *
+ * @package        iPublikuj:Forms!
+ * @subpackage     Forms
+ *
+ * @author         Adam Kadlec <adam.kadlec@ipublikuj.eu>
+ */
 class Form extends Application\UI\Form
 {
 	/**
