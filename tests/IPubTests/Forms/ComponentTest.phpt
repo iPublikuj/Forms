@@ -43,7 +43,10 @@ class ComponentTest extends Tester\TestCase
 	 */
 	private $container;
 
-	public function dataFormValues()
+	/**
+	 * @return array
+	 */
+	public function dataFormValues() : array
 	{
 		return [
 			['John Doe', 'jdoe', '123456'],
@@ -52,7 +55,10 @@ class ComponentTest extends Tester\TestCase
 		];
 	}
 
-	public function dataFormInvalidValues()
+	/**
+	 * @return array
+	 */
+	public function dataFormInvalidValues() : array
 	{
 		return [
 			['John Doe', NULL, '123456', 'This field is required.'],
@@ -201,6 +207,8 @@ class TestPresenter extends UI\Presenter
 
 	/**
 	 * @param Forms\IFormFactory $factory
+	 *
+	 * @return void
 	 */
 	public function injectFormFactory(Forms\IFormFactory $factory)
 	{
@@ -212,7 +220,7 @@ class TestPresenter extends UI\Presenter
 	 *
 	 * @return UI\Form
 	 */
-	protected function createComponentUserForm()
+	protected function createComponentUserForm() : UI\Form
 	{
 		// Init form object
 		$form = $this->factory->create(UI\Form::class);
@@ -236,7 +244,7 @@ class TestPresenter extends UI\Presenter
 	 */
 	public function formSuccess(UI\Form $form, Utils\ArrayHash $values)
 	{
-		$form->getPresenter()->flashMessage('Username:' . $values->username . '|Password:' . $values->password . '|Name:' . $values->name);
+		$this->flashMessage('Username:' . $values->username . '|Password:' . $values->password . '|Name:' . $values->name);
 	}
 
 	/**
@@ -245,7 +253,7 @@ class TestPresenter extends UI\Presenter
 	public function formError(UI\Form $form)
 	{
 		foreach ($form->getErrors() as $error) {
-			$form->getPresenter()->flashMessage($error, 'error');
+			$this->flashMessage($error, 'error');
 		}
 	}
 }
@@ -253,11 +261,11 @@ class TestPresenter extends UI\Presenter
 class RouterFactory
 {
 	/**
-	 * @return \Nette\Application\IRouter
+	 * @return Application\IRouter
 	 */
-	public static function createRouter()
+	public static function createRouter() : Application\IRouter
 	{
-		$router = new Routers\RouteList();
+		$router = new Routers\RouteList;
 		$router[] = new Routers\Route('<presenter>/<action>[/<id>]', 'Test:default');
 
 		return $router;
