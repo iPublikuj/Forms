@@ -72,7 +72,7 @@ class ComponentTest extends Tester\TestCase
 	}
 
 	/**
-	 * @return void
+	 * {@inheritdoc}
 	 */
 	public function setUp()
 	{
