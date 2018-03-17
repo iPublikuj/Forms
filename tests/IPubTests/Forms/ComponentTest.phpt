@@ -212,7 +212,7 @@ class TestPresenter extends UI\Presenter
 		// Get first flash message
 		$flash = reset($flashes);
 
-		$this->sendResponse(new Application\Responses\TextResponse($flash->message));
+		$this->sendResponse(new Application\Responses\TextResponse($flash !== NULL ? $flash->message : NULL));
 	}
 
 	/**
