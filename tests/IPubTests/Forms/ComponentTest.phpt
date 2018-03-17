@@ -113,7 +113,7 @@ class ComponentTest extends Tester\TestCase
 	 * @param string $username
 	 * @param string|NULL $password
 	 */
-	public function testProcessingForm(string $name, string $username, ?string $password) : void
+	public function testProcessingForm($name, $username, $password) : void
 	{
 		// Create test presenter
 		$presenter = $this->createPresenter();
@@ -139,7 +139,7 @@ class ComponentTest extends Tester\TestCase
 	 * @param string $password
 	 * @param string $expected
 	 */
-	public function testInvalidProcessingForm(?string $name, ?string $username, string $password, string $expected) : void
+	public function testInvalidProcessingForm($name, $username, $password, $expected) : void
 	{
 		// Create test presenter
 		$presenter = $this->createPresenter();
