@@ -16,6 +16,8 @@ declare(strict_types = 1);
 
 namespace IPub\Forms;
 
+use Nette\Application;
+
 /**
  * Form factory interface
  *
