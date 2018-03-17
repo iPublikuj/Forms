@@ -194,6 +194,11 @@ class TestPresenter extends UI\Presenter
 	protected $factory;
 
 	/**
+	 * @var string|NULL
+	 */
+	private $testResult;
+
+	/**
 	 * @return void
 	 */
 	public function renderDefault() : void
@@ -207,14 +212,7 @@ class TestPresenter extends UI\Presenter
 	 */
 	public function renderProcess() : void
 	{
-		// Get all flashes
-		$flashes = $this->getTemplate()->flashes;
-		// Get first flash message
-		$flash = reset($flashes);
-
-		$this->sendResponse(new Application\Responses\TextResponse(
-			$flash !== NULL ? (is_array($flash) && isset($flash['message']) ? $flash['message'] : (is_object($flash) ? $flash->message : $flash)) : NULL)
-		);
+		$this->sendResponse(new Application\Responses\TextResponse($this->testResult));
 	}
 
 	/**
@@ -256,7 +254,7 @@ class TestPresenter extends UI\Presenter
 	 */
 	public function formSuccess(UI\Form $form, Utils\ArrayHash $values) : void
 	{
-		$this->flashMessage('Username:' . $values->username . '|Password:' . $values->password . '|Name:' . $values->name);
+		$this->testResult = 'Username:' . $values->username . '|Password:' . $values->password . '|Name:' . $values->name;
 	}
 
 	/**
@@ -265,7 +263,9 @@ class TestPresenter extends UI\Presenter
 	public function formError(UI\Form $form) : void
 	{
 		foreach ($form->getErrors() as $error) {
-			$this->flashMessage($error, 'error');
+			$this->testResult = $error;
+
+			break;
 		}
 	}
 }
