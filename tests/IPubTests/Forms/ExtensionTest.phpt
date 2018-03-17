@@ -23,14 +23,13 @@ use Nette\Application\UI;
 use Tester;
 use Tester\Assert;
 
-use IPub;
 use IPub\Forms;
 
 require __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'bootstrap.php';
 
 class ExtensionTest extends Tester\TestCase
 {
-	public function testCompilersServices()
+	public function testCompilersServices() : void
 	{
 		$dic = $this->createContainer();
 

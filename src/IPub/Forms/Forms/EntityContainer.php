@@ -18,7 +18,6 @@ namespace IPub\Forms\Forms;
 
 use Doctrine\ORM;
 
-use Nette;
 use Nette\Forms;
 
 /**

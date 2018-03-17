@@ -26,7 +26,6 @@ use Nette\Utils;
 use Tester;
 use Tester\Assert;
 
-use IPub;
 use IPub\Forms;
 
 require __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'bootstrap.php';
@@ -74,7 +73,7 @@ class ComponentTest extends Tester\TestCase
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setUp()
+	public function setUp() : void
 	{
 		parent::setUp();
 
@@ -90,7 +89,7 @@ class ComponentTest extends Tester\TestCase
 		}
 	}
 
-	public function testCreatingForm()
+	public function testCreatingForm() : void
 	{
 		// Create test presenter
 		$presenter = $this->createPresenter();
@@ -114,7 +113,7 @@ class ComponentTest extends Tester\TestCase
 	 * @param string $username
 	 * @param string $password
 	 */
-	public function testProcessingForm($name, $username, $password)
+	public function testProcessingForm(string $name, string $username, string $password) : void
 	{
 		// Create test presenter
 		$presenter = $this->createPresenter();
@@ -140,7 +139,7 @@ class ComponentTest extends Tester\TestCase
 	 * @param string $password
 	 * @param string $expected
 	 */
-	public function testInvalidProcessingForm($name, $username, $password, $expected)
+	public function testInvalidProcessingForm(string $name, string $username, string $password, string $expected) : void
 	{
 		// Create test presenter
 		$presenter = $this->createPresenter();
@@ -161,7 +160,7 @@ class ComponentTest extends Tester\TestCase
 	/**
 	 * @return Application\IPresenter
 	 */
-	protected function createPresenter()
+	protected function createPresenter() : Application\IPresenter
 	{
 		// Create test presenter
 		$presenter = $this->presenterFactory->createPresenter('Test');
@@ -197,7 +196,7 @@ class TestPresenter extends UI\Presenter
 	/**
 	 * @return void
 	 */
-	public function renderDefault()
+	public function renderDefault() : void
 	{
 		// Set template for component testing
 		$this->template->setFile(__DIR__ . DS . 'templates' . DS . 'default.latte');
@@ -206,7 +205,7 @@ class TestPresenter extends UI\Presenter
 	/**
 	 * @return void
 	 */
-	public function renderProcess()
+	public function renderProcess() : void
 	{
 		// Get all flashes
 		$flashes = $this->getTemplate()->flashes;
@@ -221,7 +220,7 @@ class TestPresenter extends UI\Presenter
 	 *
 	 * @return void
 	 */
-	public function injectFormFactory(Forms\IFormFactory $factory)
+	public function injectFormFactory(Forms\IFormFactory $factory) : void
 	{
 		$this->factory = $factory;
 	}
@@ -253,7 +252,7 @@ class TestPresenter extends UI\Presenter
 	/**
 	 * @return void
 	 */
-	public function formSuccess(UI\Form $form, Utils\ArrayHash $values)
+	public function formSuccess(UI\Form $form, Utils\ArrayHash $values) : void
 	{
 		$this->flashMessage('Username:' . $values->username . '|Password:' . $values->password . '|Name:' . $values->name);
 	}
@@ -261,7 +260,7 @@ class TestPresenter extends UI\Presenter
 	/**
 	 * @return void
 	 */
-	public function formError(UI\Form $form)
+	public function formError(UI\Form $form) : void
 	{
 		foreach ($form->getErrors() as $error) {
 			$this->flashMessage($error, 'error');

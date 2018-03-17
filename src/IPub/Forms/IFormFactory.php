@@ -22,7 +22,7 @@ namespace IPub\Forms;
  * @package        iPublikuj:Forms!
  * @subpackage     common
  *
- * @author         Adam Kadlec <adam.kadlec@fastybird.com>
+ * @author         Adam Kadlec <adam.kadlec@ipublikuj.eu>
  */
 interface IFormFactory
 {
@@ -30,7 +30,7 @@ interface IFormFactory
 	 * @param string $formClassName
 	 * @param array ...$args
 	 *
-	 * @return mixed
+	 * @return Application\UI\Form
 	 */
-	function create(string $formClassName, ...$args);
+	function create(string $formClassName, ...$args) : Application\UI\Form;
 }

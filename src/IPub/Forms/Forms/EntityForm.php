@@ -18,7 +18,6 @@ namespace IPub\Forms\Forms;
 
 use Doctrine\ORM;
 
-use Nette;
 use Nette\Application;
 use Nette\ComponentModel;
 
@@ -50,7 +49,7 @@ class EntityForm extends Application\UI\Form
 	/**
 	 * @param ORM\EntityManager $entityManager
 	 */
-	public function injectEntityManager(ORM\EntityManager $entityManager)
+	public function injectEntityManager(ORM\EntityManager $entityManager) : void
 	{
 		$this->entityManager = $entityManager;
 	}

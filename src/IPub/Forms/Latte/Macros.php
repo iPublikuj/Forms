@@ -14,15 +14,10 @@
 
 namespace IPub\Forms\Latte;
 
-use Nette;
-
-use Latte;
 use Latte\Compiler;
 use Latte\MacroNode;
 use Latte\PhpWriter;
 use Latte\Macros\MacroSet;
-
-use IPub;
 
 /**
  * Forms additional latte macros
@@ -30,7 +25,7 @@ use IPub;
  * @package        iPublikuj:Forms!
  * @subpackage     Latte
  *
- * @author         Adam Kadlec <adam.kadlec@fastybird.com>
+ * @author         Adam Kadlec <adam.kadlec@ipublikuj.eu>
  */
 final class Macros extends MacroSet
 {

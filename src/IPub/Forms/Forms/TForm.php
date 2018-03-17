@@ -14,7 +14,6 @@
 
 namespace IPub\Forms\Forms;
 
-use Nette;
 use Nette\Utils;
 
 use IPub\Forms;
@@ -41,8 +40,10 @@ trait TForm
 
 	/**
 	 * @param array $defaults
+	 *
+	 * @return void
 	 */
-	public function restore(array $defaults = [])
+	public function restore(array $defaults = []) : void
 	{
 		$this->setDefaults($defaults, TRUE);
 		$this->setValues($defaults, TRUE);
@@ -58,8 +59,10 @@ trait TForm
 
 	/**
 	 * @param mixed $id
+	 *
+	 * @return void
 	 */
-	public function setId($id)
+	public function setId($id) : void
 	{
 		$this->id = $id;
 	}
@@ -69,7 +72,7 @@ trait TForm
 	 *
 	 * @return void
 	 */
-	public function setErrorClass(string $errorClass)
+	public function setErrorClass(string $errorClass) : void
 	{
 		$this->errorClass = $errorClass;
 	}
@@ -77,7 +80,7 @@ trait TForm
 	/**
 	 * @return void
 	 */
-	protected function beforeRender()
+	protected function beforeRender() : void
 	{
 		parent::beforeRender();
 
@@ -110,7 +113,7 @@ trait TForm
 	 *
 	 * @return void
 	 */
-	protected function addExtension(string $name, string $class)
+	protected function addExtension(string $name, string $class) : void
 	{
 		Nette\Forms\Container::extensionMethod($name, function (Nette\Forms\Container $container, $name, $label = NULL) use ($class) {
 			return $container[$name] = new $class($label);

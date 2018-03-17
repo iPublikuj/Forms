@@ -16,7 +16,6 @@ declare(strict_types = 1);
 
 namespace IPub\Forms;
 
-use Nette;
 use Nette\Application;
 use Nette\DI;
 use Nette\Localization;
@@ -27,12 +26,12 @@ use Nette\Localization;
  * @package        iPublikuj:Forms!
  * @subpackage     common
  *
- * @author         Adam Kadlec <adam.kadlec@fastybird.com>
+ * @author         Adam Kadlec <adam.kadlec@ipublikuj.eu>
  */
 final class FormFactory implements IFormFactory
 {
 	/**
-	 * @var Localization\ITranslator
+	 * @var Localization\ITranslator|NULL
 	 */
 	private $translator;
 
@@ -56,7 +55,7 @@ final class FormFactory implements IFormFactory
 	/**
 	 * {@inheritdoc}
 	 */
-	public function create(string $formClassName, ...$args)
+	public function create(string $formClassName, ...$args) : Application\UI\Form
 	{
 		if (!class_exists($formClassName)) {
 			throw new Exceptions\InvalidArgumentException('Factory form class isn\'t defined.');

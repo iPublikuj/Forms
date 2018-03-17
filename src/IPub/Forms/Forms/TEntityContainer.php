@@ -18,10 +18,8 @@ namespace IPub\Forms\Forms;
 
 use Doctrine\ORM;
 
-use Nette;
 use Nette\Forms;
 
-use IPub;
 use IPub\Forms\Exceptions;
 
 /**
@@ -45,8 +43,10 @@ trait TEntityContainer
 	/**
 	 * @param array|\Traversable $values
 	 * @param bool $erase
+	 *
+	 * @return void
 	 */
-	public function setDefaults($values, $erase = FALSE)
+	public function setDefaults($values, $erase = FALSE) : void
 	{
 		$form = $this->getForm(FALSE);
 
@@ -62,8 +62,10 @@ trait TEntityContainer
 
 	/**
 	 * @param mixed $entity
+	 *
+	 * @return void
 	 */
-	public function setEntity($entity)
+	public function setEntity($entity) : void
 	{
 		$this->entity = $entity;
 
@@ -85,9 +87,11 @@ trait TEntityContainer
 	 * @param object $entity
 	 * @param bool $erase
 	 *
+	 * @return void
+	 *
 	 * @throws Exceptions\InvalidArgumentException
 	 */
-	private function bindEntity($formElement, $entity, $erase)
+	private function bindEntity($formElement, $entity, bool $erase) : void
 	{
 		$classMetadata = $this->getMetadata($entity);
 

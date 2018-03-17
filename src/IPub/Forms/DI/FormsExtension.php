@@ -20,7 +20,6 @@ use Nette;
 use Nette\Bridges;
 use Nette\DI;
 
-use IPub;
 use IPub\Forms;
 
 /**
@@ -36,19 +35,19 @@ final class FormsExtension extends DI\CompilerExtension
 	/**
 	 * @return void
 	 */
-	public function loadConfiguration()
+	public function loadConfiguration() : void
 	{
 		$builder = $this->getContainerBuilder();
 
 		$builder->addDefinition($this->prefix('factory'))
-			->setClass(Forms\FormFactory::class)
+			->setType(Forms\FormFactory::class)
 			->addTag('cms.forms');
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
-	public function beforeCompile()
+	public function beforeCompile() : void
 	{
 		parent::beforeCompile();
 
@@ -66,7 +65,7 @@ final class FormsExtension extends DI\CompilerExtension
 	 *
 	 * @return void
 	 */
-	public static function register(Nette\Configurator $config, string $extensionName = 'extendedForms')
+	public static function register(Nette\Configurator $config, string $extensionName = 'extendedForms') : void
 	{
 		$config->onCompile[] = function (Nette\Configurator $config, Nette\DI\Compiler $compiler) use ($extensionName) {
 			$compiler->addExtension($extensionName, new FormsExtension());
