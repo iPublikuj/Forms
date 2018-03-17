@@ -29,4 +29,4 @@ extensions:
 Learn how to create form in different way in [documentation](https://github.com/iPublikuj/forms/blob/master/docs/en/index.md).
 
 ***
-Homepage [http://www.ipublikuj.eu](http://www.ipublikuj.eu) and repository [http://github.com/iPublikuj/forms](http://github.com/iPublikuj/forms).
+Homepage [https://www.ipublikuj.eu](https://www.ipublikuj.eu) and repository [http://github.com/iPublikuj/forms](http://github.com/iPublikuj/forms).
