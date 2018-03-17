@@ -113,7 +113,7 @@ class ComponentTest extends Tester\TestCase
 	 * @param string $username
 	 * @param string|NULL $password
 	 */
-	public function testProcessingForm($name, $username, $password) : void
+	public function testProcessingForm(string $name, string $username, ?string $password) : void
 	{
 		// Create test presenter
 		$presenter = $this->createPresenter();
@@ -139,7 +139,7 @@ class ComponentTest extends Tester\TestCase
 	 * @param string $password
 	 * @param string $expected
 	 */
-	public function testInvalidProcessingForm($name, $username, $password, $expected) : void
+	public function testInvalidProcessingForm(?string $name, ?string $username, string $password, string $expected) : void
 	{
 		// Create test presenter
 		$presenter = $this->createPresenter();
@@ -252,8 +252,10 @@ class TestPresenter extends UI\Presenter
 	/**
 	 * @return void
 	 */
-	public function formSuccess(UI\Form $form, Utils\ArrayHash $values) : void
+	public function formSuccess(UI\Form $form) : void
 	{
+		$values = $form->getValues();
+
 		$this->testResult = 'Username:' . $values->username . '|Password:' . $values->password . '|Name:' . $values->name;
 	}
 
