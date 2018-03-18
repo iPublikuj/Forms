@@ -4,7 +4,7 @@
  *
  * @copyright      More in license.md
  * @license        https://www.ipublikuj.eu
- * @author         Adam Kadlec https://www.ipublikuj.eu
+ * @author         Adam Kadlec <adam.kadlec@ipublikuj.eu>
  * @package        iPublikuj:Forms!
  * @subpackage     Forms
  * @since          1.0.0
@@ -14,9 +14,8 @@
 
 namespace IPub\Forms\Forms;
 
-use Nette\Utils;
-
-use IPub\Forms;
+use Nette;
+use Nette\Forms\Controls;
 
 /**
  * Form trait for decorating form
@@ -84,7 +83,7 @@ trait TForm
 	{
 		parent::beforeRender();
 
-		/** @var Nette\Forms\Controls\BaseControl $control */
+		/** @var Controls\BaseControl $control */
 		foreach ($this->getControls() as $control) {
 			$inputClass = [];
 

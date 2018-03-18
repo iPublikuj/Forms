@@ -4,7 +4,7 @@
  *
  * @copyright      More in license.md
  * @license        https://www.ipublikuj.eu
- * @author         Adam Kadlec https://www.ipublikuj.eu
+ * @author         Adam Kadlec <adam.kadlec@ipublikuj.eu>
  * @package        iPublikuj:Forms!
  * @subpackage     Forms
  * @since          1.0.0
@@ -18,6 +18,8 @@ namespace IPub\Forms\Forms;
 
 use Doctrine\ORM;
 
+use Nette\Application;
+use Nette\ComponentModel;
 use Nette\Forms;
 
 use IPub\Forms\Exceptions;
@@ -30,7 +32,7 @@ use IPub\Forms\Exceptions;
  *
  * @author         Adam Kadlec <adam.kadlec@ipublikuj.eu>
  *
- * @method Nette\Application\UI\Form getForm($need = TRUE)
+ * @method Application\UI\Form getForm($need = TRUE)
  * @method setValues($values, $erase = FALSE)
  */
 trait TEntityContainer
@@ -45,6 +47,8 @@ trait TEntityContainer
 	 * @param bool $erase
 	 *
 	 * @return void
+	 *
+	 * @throws Exceptions\InvalidArgumentException
 	 */
 	public function setDefaults($values, $erase = FALSE) : void
 	{
@@ -83,7 +87,7 @@ trait TEntityContainer
 	}
 
 	/**
-	 * @param Nette\ComponentModel\Component $formElement
+	 * @param ComponentModel\Component $formElement
 	 * @param object $entity
 	 * @param bool $erase
 	 *
