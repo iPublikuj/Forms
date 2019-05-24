@@ -1,8 +1,8 @@
 # Forms
 
-[![Build Status](https://img.shields.io/travis/iPublikuj/forms.svg?style=flat-square)](https://travis-ci.org/iPublikuj/forms)
-[![Scrutinizer Code Coverage](https://img.shields.io/scrutinizer/coverage/g/iPublikuj/forms.svg?style=flat-square)](https://scrutinizer-ci.com/g/iPublikuj/forms/?branch=master)
-[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/iPublikuj/forms.svg?style=flat-square)](https://scrutinizer-ci.com/g/iPublikuj/forms/?branch=master)
+[![Build Status](https://img.shields.io/travis/ipublikuj-ui/forms.svg?style=flat-square)](https://travis-ci.org/ipublikuj-ui/forms)
+[![Scrutinizer Code Coverage](https://img.shields.io/scrutinizer/coverage/g/ipublikuj-ui/forms.svg?style=flat-square)](https://scrutinizer-ci.com/g/ipublikuj-ui/forms/?branch=master)
+[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/ipublikuj-ui/forms.svg?style=flat-square)](https://scrutinizer-ci.com/g/ipublikuj-ui/forms/?branch=master)
 [![Latest Stable Version](https://img.shields.io/packagist/v/ipub/forms.svg?style=flat-square)](https://packagist.org/packages/ipub/forms)
 [![Composer Downloads](https://img.shields.io/packagist/dt/ipub/forms.svg?style=flat-square)](https://packagist.org/packages/ipub/forms)
 [![License](https://img.shields.io/packagist/l/ipub/forms.svg?style=flat-square)](https://packagist.org/packages/ipub/forms)
